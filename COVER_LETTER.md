@@ -1,6 +1,6 @@
 Hi,
 
-Founding hires who take real ownership are rare. Built a working concept of the Fronto AI platform before reaching out: {VERCEL_URL}
+Founding hires who take real ownership are rare. Built a working concept of the Fronto AI platform before reaching out: https://fronto-ai-mobile.vercel.app
 
 The demo covers the AI conversation flow, scheduling layer, and CRM contact pipeline. But those three systems need to talk to each other from day one. At my last client, replaced a 4-hour manual review process with a 20-minute AI pipeline. Same ownership mindset.
 
