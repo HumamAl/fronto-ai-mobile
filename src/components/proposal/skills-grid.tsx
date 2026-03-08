@@ -1,3 +1,9 @@
+// Pill tags by category — linear aesthetic.
+// Category cards with skill tags inside. Matches the linear card pattern.
+// No "use client" needed.
+
+import { Badge } from "@/components/ui/badge";
+
 interface SkillCategory {
   name: string;
   skills: string[];
@@ -9,22 +15,39 @@ interface SkillsGridProps {
 
 export function SkillsGrid({ categories }: SkillsGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {categories.map((category) => (
-        <div key={category.name} className="rounded-lg border border-border/60 bg-card p-4 shadow-[0_1px_2px_0_rgb(0_0_0/0.03)]">
-          <h3 className="text-sm font-medium mb-2">{category.name}</h3>
-          <div className="flex flex-wrap gap-1.5">
-            {category.skills.map((skill) => (
-              <span
-                key={skill}
-                className="px-2 py-0.5 text-xs rounded-md bg-primary/10 text-primary"
-              >
-                {skill}
-              </span>
-            ))}
+    <section className="space-y-5">
+      <div>
+        <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground mb-1">
+          Tech Stack
+        </p>
+        <h2 className="text-xl font-bold tracking-tight text-foreground">
+          What I bring to this build
+        </h2>
+        <p className="text-sm text-muted-foreground mt-1">
+          Relevant skills only — filtered for this job.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {categories.map((category) => (
+          <div key={category.name} className="linear-card p-5 space-y-3">
+            <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
+              {category.name}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {category.skills.map((skill) => (
+                <Badge
+                  key={skill}
+                  variant="outline"
+                  className="font-mono text-xs px-2.5 py-1 rounded-full border-border/60 text-foreground"
+                >
+                  {skill}
+                </Badge>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </section>
   );
 }

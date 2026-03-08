@@ -53,9 +53,9 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Fonts */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Fonts — Inter body + IBM Plex Mono for data labels (Creative Brief) */
+  --font-sans: var(--font-inter, var(--font-geist-sans));
+  --font-mono: var(--font-ibm-plex-mono, var(--font-geist-mono));
 
   /* Radius scale — derived from single --radius token */
   --radius-sm: calc(var(--radius) - 4px);
@@ -89,38 +89,40 @@
    Layout Builder overrides color tokens per domain.
    Aesthetic [data-theme] blocks below override all other tokens.
    ============================================================ */
+
+/* ── AESTHETIC: linear / DOMAIN: conversational-ai-voice-automation ─────────
+   Creative rationale: Light background for voice AI (competitors all use dark),
+   inspired by air traffic control ops displays — indigo-violet on white with
+   color-coded status strips and live tracking signal metaphor.             */
 :root {
   /* ── Border Radius ───────────────────────────────────────────
-     Profiles: sharp = 0.25rem | standard = 0.5rem | rounded = 0.75rem
-     Layout Builder sets to match domain personality.            */
-  --radius: 0.5rem;
+     Creative Brief: medium (0.625rem)                           */
+  --radius: 0.625rem;
 
-  /* ── Base Surfaces ───────────────────────────────────────── */
+  /* ── Base Surfaces (light linear aesthetic) ──────────────── */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --surface-hover: oklch(0.96 0 0);
-  --surface-active: oklch(0.94 0 0);
+  --surface-hover: oklch(0.965 0.006 260);
+  --surface-active: oklch(0.945 0.009 260);
 
-  /* ── Primary Color ───────────────────────────────────────────
-     !! OVERRIDE REQUIRED — Layout Builder must replace --primary and
-        --primary-h with domain-appropriate oklch values.
-        See the Creative Brief's colorDirection for the target color.
-        QA rejects builds where --primary stays oklch(0.205 0 0). !! */
-  --primary: oklch(0.205 0 0);
+  /* ── Primary Color — indigo-violet ──────────────────────────
+     Creative Brief: oklch(0.58 0.22 260) — Synthflow-inspired
+     enterprise purple, lighter and more actionable.             */
+  --primary: oklch(0.58 0.22 260);
   --primary-foreground: oklch(0.985 0 0);
-  --primary-h: 270; /* Integer hue extracted from --primary */
+  --primary-h: 260;
 
   /* ── Derived Color Tokens ────────────────────────────────── */
   --section-dark: oklch(0.10 0.02 var(--primary-h));
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.97 0.004 260);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.95 0.012 260);
   --accent-foreground: oklch(0.205 0 0);
 
   /* ── Semantic Colors ─────────────────────────────────────── */
@@ -131,29 +133,32 @@
   --warning-foreground: oklch(0.205 0 0);
 
   /* ── Borders & Inputs ────────────────────────────────────── */
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.918 0.006 260);
+  --input: oklch(0.918 0.006 260);
+  --ring: oklch(0.58 0.22 260);
 
-  /* ── Chart Colors ────────────────────────────────────────────
-     Layout Builder harmonizes to primary hue. See design-system.md. */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  /* ── Chart Colors — harmonized to hue 260 (indigo) ──────────
+     chart-1: primary hue (260 — indigo)
+     chart-2: +30 degrees (290 — violet)
+     chart-3: +60 degrees (320 — magenta-pink)
+     chart-4: -30 degrees (230 — blue)
+     chart-5: complementary (80 — amber, for CRM sync badges)   */
+  --chart-1: oklch(0.58 0.22 260);
+  --chart-2: oklch(0.55 0.20 290);
+  --chart-3: oklch(0.60 0.18 320);
+  --chart-4: oklch(0.56 0.19 230);
+  --chart-5: oklch(0.72 0.18 80);
 
   /* ── Sidebar Colors ──────────────────────────────────────────
-     After color override: --sidebar-primary and --sidebar-ring
-     should match --primary.                                     */
-  --sidebar: oklch(0.985 0 0);
+     sidebar-primary and sidebar-ring match --primary.          */
+  --sidebar: oklch(0.985 0.004 260);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: oklch(0.58 0.22 260);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent: oklch(0.95 0.012 260);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-border: oklch(0.918 0.006 260);
+  --sidebar-ring: oklch(0.58 0.22 260);
 
   /* ── Surface / Card Tokens ───────────────────────────────────
      Driven by [data-theme] aesthetic — not overridden per domain.
@@ -193,18 +198,15 @@
   --content-padding: 1.5rem;
   --nav-item-py: 0.5rem;
 
-  /* Sidebar surface — override to tint sidebar by domain:
-     White (default): oklch(1 0 0)
-     Tinted:          oklch(0.985 0.008 var(--primary-h))
-     Subdued:         oklch(0.97 0.005 var(--primary-h))          */
-  --sidebar-bg: oklch(1 0 0);
+  /* Sidebar surface — subtle indigo tint for linear aesthetic */
+  --sidebar-bg: oklch(0.985 0.008 260);
 
   /* Tab bar background — tint to primary hue subtly if desired */
   --tab-bar-bg: var(--background);
 
   /* ── Typography Tokens ───────────────────────────────────── */
-  --font-display: var(--font-geist-sans);
-  --font-body: var(--font-geist-sans);
+  --font-display: var(--font-inter, var(--font-geist-sans));
+  --font-body: var(--font-inter, var(--font-geist-sans));
   --heading-weight: 700;
   --heading-tracking: -0.025em;
   --heading-transform: none;
@@ -213,13 +215,14 @@
   --body-leading: 1.625;
 
   /* ── Motion Tokens ───────────────────────────────────────────
+     Creative Brief: snappy (120-180ms ease-out) — precise, operational
      All transitions in components use these — never hardcode
      duration-200+ or ease-in values directly.                   */
-  --dur-fast: 100ms;
+  --dur-fast: 120ms;
   --dur-normal: 150ms;
-  --dur-slow: 250ms;
-  --dur-deliberate: 400ms;
-  --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-slow: 180ms;
+  --dur-deliberate: 300ms;
+  --ease-snappy: cubic-bezier(0.0, 0.0, 0.2, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --t-interactive: var(--dur-fast) var(--ease-snappy);
@@ -320,7 +323,8 @@
    The current default aesthetic. Snappy, precise, border-first.
    Best for: dev tools, B2B SaaS, AI/ML, internal tooling.       */
 [data-theme="linear"] {
-  --radius: 0.5rem;
+  /* Creative Brief: medium radius (0.625rem) — not sharp, not round */
+  --radius: 0.625rem;
   --card-border-width: 1px;
   --card-shadow: none;
   --card-shadow-hover: none;
@@ -331,8 +335,10 @@
   --section-gap: 1.5rem;
   --heading-weight: 700;
   --heading-tracking: -0.025em;
-  --dur-fast: 80ms;
-  --dur-normal: 100ms;
+  /* Creative Brief: snappy (120-180ms ease-out) */
+  --dur-fast: 120ms;
+  --dur-normal: 150ms;
+  --ease-snappy: cubic-bezier(0.0, 0.0, 0.2, 1);
   --t-interactive: var(--dur-fast) var(--ease-snappy);
 }
 
@@ -846,7 +852,7 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: var(--font-body, var(--font-geist-sans));
+    font-family: var(--font-body, var(--font-inter, var(--font-geist-sans)));
     font-weight: var(--body-weight, 400);
     letter-spacing: var(--body-tracking, 0em);
     line-height: var(--body-leading, 1.625);
